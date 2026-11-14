@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090b12" />
+    <title>Orbit — Team workspace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand"><span class="brand-mark"><i data-lucide="orbit"></i></span><span>orbit</span></div>
+        <div class="workspace-switcher" id="workspaceSwitcher"><div class="workspace-icon">N</div><div><strong>Northstar</strong><span>Team workspace</span></div><i data-lucide="chevrons-up-down"></i></div>
+        <nav class="primary-nav">
+          <button class="nav-item active" data-view="overview"><i data-lucide="layout-dashboard"></i><span>Overview</span></button>
+          <button class="nav-item" data-view="my-tasks"><i data-lucide="circle-check"></i><span>My tasks</span><em id="myTaskBadge">4</em></button>
+          <button class="nav-item" data-view="team"><i data-lucide="users"></i><span>Team tasks</span></button>
+          <button class="nav-item" data-view="members"><i data-lucide="user-round-plus"></i><span>Members</span></button>
+        </nav>
+        <div class="sidebar-label">Workspace</div>
+        <nav class="secondary-nav">
+          <button class="nav-item"><i data-lucide="settings-2"></i><span>Settings</span></button>
+          <button class="nav-item"><i data-lucide="book-open"></i><span>Documentation</span><i data-lucide="arrow-up-right" class="small-icon"></i></button>
+        </nav>
+        <div class="sidebar-bottom"><div class="upgrade-card"><div class="sparkle"><i data-lucide="sparkles"></i></div><strong>Make space for focus</strong><p>Keep the team moving with a clear view of what matters.</p><button class="text-button" id="inviteFromCard">Invite a teammate <i data-lucide="arrow-right"></i></button></div><div class="profile"><div class="avatar avatar-me">AM</div><div><strong>Alex Morgan</strong><span>Leader</span></div><i data-lucide="more-horizontal"></i></div></div>
+      </aside>
+      <main class="main-content">
+        <header class="topbar"><div class="breadcrumbs"><span>Workspace</span><i data-lucide="chevron-right"></i><strong id="pageCrumb">Overview</strong></div><div class="top-actions"><button class="icon-button" title="Search"><i data-lucide="search"></i></button><button class="icon-button notification" title="Notifications"><i data-lucide="bell"></i><span></span></button><button class="top-avatar avatar avatar-me">AM</button></div></header>
+        <section class="page-section" id="overviewView">
+          <div class="hero-row"><div><p class="eyebrow"><span class="pulse-dot"></span> Friday, November 14, 2026</p><h1>Good morning, Alex <span class="wave">✦</span></h1><p class="hero-subtitle">Here’s what’s happening across Northstar today.</p></div><button class="primary-button" id="newTaskBtn"><i data-lucide="plus"></i> New task</button></div>
+          <div class="kpi-grid" id="kpiGrid"></div>
+          <div class="content-grid"><section class="panel chart-panel"><div class="panel-header"><div><p class="eyebrow">TEAM PULSE</p><h2>Workload by teammate</h2></div><button class="select-button">This week <i data-lucide="chevron-down"></i></button></div><div class="workload-chart" id="workloadChart"></div><div class="legend"><span><i class="legend-dot violet"></i> Completed</span><span><i class="legend-dot cyan"></i> In progress</span><span><i class="legend-dot muted"></i> Remaining</span></div></section><section class="panel activity-panel"><div class="panel-header"><div><p class="eyebrow">LIVE FEED</p><h2>Recent activity</h2></div><button class="more-button"><i data-lucide="more-horizontal"></i></button></div><div class="activity-list" id="activityList"></div><button class="full-width-button">View all activity <i data-lucide="arrow-up-right"></i></button></section></div>
+          <div class="section-heading"><div><p class="eyebrow">YOUR WORKSPACE</p><h2>Task board</h2></div><div class="board-actions"><button class="filter-button" id="filterBtn"><i data-lucide="sliders-horizontal"></i> Filters <span id="filterCount"></span></button><button class="view-toggle active"><i data-lucide="columns-3"></i></button><button class="view-toggle"><i data-lucide="list"></i></button></div></div>
+          <section class="board" id="board"></section>
+        </section>
+        <section class="page-section hidden" id="myTasksView"><div class="empty-view"><div class="empty-icon"><i data-lucide="circle-check"></i></div><h1>My tasks</h1><p>All tasks assigned to you, in one focused view.</p><button class="primary-button" id="myTaskCreate"><i data-lucide="plus"></i> Add a task</button><div class="simple-list" id="myTaskList"></div></div></section>
+        <section class="page-section hidden" id="teamView"><div class="empty-view"><div class="empty-icon"><i data-lucide="users"></i></div><h1>Team tasks</h1><p>Everything your team is working on right now.</p><div class="simple-list" id="teamTaskList"></div></div></section>
+        <section class="page-section hidden" id="membersView"><div class="empty-view"><div class="empty-icon"><i data-lucide="user-round-plus"></i></div><h1>Members</h1><p>Keep the right people in the loop.</p><div class="members-list" id="membersList"></div><button class="primary-button" id="inviteBtn"><i data-lucide="user-plus"></i> Invite teammate</button></div></section>
+      </main>
+    </div>
+    <div class="modal-backdrop" id="modalBackdrop"><div class="modal" id="taskModal"><button class="close-button" id="closeModal"><i data-lucide="x"></i></button><p class="eyebrow">QUICK CAPTURE</p><h2>Create a new task</h2><p class="modal-subtitle">Give the team a clear next step.</p><form id="taskForm"><label>Task title<input name="title" required placeholder="e.g. Prepare launch notes" /></label><div class="form-row"><label>Assignee<select name="assignee" id="assigneeSelect"></select></label><label>Priority<select name="priority"><option value="High">High</option><option value="Medium" selected>Medium</option><option value="Low">Low</option></select></label></div><div class="form-row"><label>Due date<input type="date" name="dueDate" /></label><label>Status<select name="status"><option value="backlog">Backlog</option><option value="progress" selected>In progress</option><option value="review">Review</option><option value="done">Done</option></select></label></div><label>Description<textarea name="description" rows="3" placeholder="Add a little context..."></textarea></label><div class="modal-actions"><button type="button" class="secondary-button" id="cancelModal">Cancel</button><button class="primary-button" type="submit"><i data-lucide="plus"></i> Create task</button></div></form></div></div>
+    <div class="toast" id="toast"><i data-lucide="check-circle-2"></i><span></span></div>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
